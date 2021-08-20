@@ -1,11 +1,11 @@
-# apollo-server-client-template
+# apollo-server-urql-template
 
-Apollo Server + Apollo Client の素振り環境
+Apollo Server + urql の素振り環境
 
 ## Create Application
 
 ```sh
-yarn create next-app -e https://github.com/mitani24/apollo-server-client-template
+yarn create next-app -e https://github.com/mitani24/apollo-server-urql-template
 ```
 
 ## インストール
