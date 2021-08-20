@@ -21,13 +21,14 @@ export default function TrackItem({ track }: Props) {
   const [editing, setEditing] = useBoolean()
   const [value, setValue] = useState(track.title)
   const [result, updateTrack] = useUpdateTrackMutation()
+  const { fetching } = result
 
   const handleClickOk = async () => {
     await updateTrack({
       updateTrackId: track.id,
       updateTrackContent: { title: value },
     })
-    setEditing.off
+    setEditing.off()
   }
 
   return (
@@ -39,7 +40,9 @@ export default function TrackItem({ track }: Props) {
               value={value}
               onChange={(event) => setValue(event.target.value)}
             />
-            <Button onClick={handleClickOk}>OK</Button>
+            <Button onClick={handleClickOk} isLoading={fetching}>
+              OK
+            </Button>
           </>
         ) : (
           <>
