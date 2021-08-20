@@ -1,0 +1,15 @@
+overwrite: true
+schema: ./graphql/schema.graphql
+documents:
+  - ./graphql/queries/*.graphql
+  - ./graphql/mutations/*.graphql
+generates:
+  ./server/src/__generated__/graphql-resolver-types.ts:
+    plugins:
+      - typescript
+      - typescript-resolvers
+  ./client/src/__generated__/graphql-client-api.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo

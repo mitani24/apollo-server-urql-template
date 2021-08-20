@@ -1,0 +1,25 @@
+{
+  "name": "apollo-server-client-template",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "author": "mitani24 <h.mitani@ashita-team.com>",
+  "workspaces": [
+    "api",
+    "server",
+    "client"
+  ],
+  "scripts": {
+    "codegen": "graphql-codegen --config codegen.yml"
+  },
+  "dependencies": {
+    "graphql": "^15.5.1"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.0.1",
+    "@graphql-codegen/typescript": "2.0.0",
+    "@graphql-codegen/typescript-operations": "^2.0.1",
+    "@graphql-codegen/typescript-react-apollo": "^3.0.0",
+    "@graphql-codegen/typescript-resolvers": "2.0.0"
+  }
+}
