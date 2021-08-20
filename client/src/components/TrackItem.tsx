@@ -20,19 +20,14 @@ type Props = {
 export default function TrackItem({ track }: Props) {
   const [editing, setEditing] = useBoolean()
   const [value, setValue] = useState(track.title)
-  const [updateTrack] = useUpdateTrackMutation({
-    onCompleted() {
-      setEditing.off()
-    },
-  })
+  const [result, updateTrack] = useUpdateTrackMutation()
 
-  const handleClickOk = () => {
-    updateTrack({
-      variables: {
-        updateTrackId: track.id,
-        updateTrackContent: { title: value },
-      },
+  const handleClickOk = async () => {
+    await updateTrack({
+      updateTrackId: track.id,
+      updateTrackContent: { title: value },
     })
+    setEditing.off
   }
 
   return (

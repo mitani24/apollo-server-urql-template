@@ -1,15 +1,15 @@
-import { ApolloError } from "@apollo/client"
 import { Text } from "@chakra-ui/react"
+import { CombinedError } from "urql"
 
 type Props<TData> = {
-  loading: boolean
-  error?: ApolloError
+  fetching: boolean
+  error?: CombinedError
   data?: TData
   children: (data: TData) => React.ReactNode
 }
 
 export default function QueryResult<TData = any>({
-  loading,
+  fetching,
   error,
   data,
   children,
@@ -18,7 +18,7 @@ export default function QueryResult<TData = any>({
     return <Text>ERROR: {error.message}</Text>
   }
 
-  if (loading) {
+  if (fetching) {
     return <Text>Loading...</Text>
   }
 

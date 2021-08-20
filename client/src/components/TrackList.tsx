@@ -4,10 +4,11 @@ import TrackItem from "./TrackItem"
 import { useTracksQuery } from "@/__generated__/graphql-client-api"
 
 export default function TrackList() {
-  const { loading, error, data } = useTracksQuery()
+  const [result] = useTracksQuery()
+  const { fetching, error, data } = result
 
   return (
-    <QueryResult loading={loading} error={error} data={data}>
+    <QueryResult fetching={fetching} error={error} data={data}>
       {({ tracks }) => (
         <UnorderedList>
           {tracks.map((track) => (
