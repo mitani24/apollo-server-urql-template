@@ -1,10 +1,10 @@
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import gql from 'graphql-tag';
+import * as Urql from 'urql';
 export type Maybe<T> = T | null;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions =  {}
+export type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -141,33 +141,10 @@ export const UpdateTrackDocument = gql`
   }
 }
     `;
-export type UpdateTrackMutationFn = Apollo.MutationFunction<UpdateTrackMutation, UpdateTrackMutationVariables>;
 
-/**
- * __useUpdateTrackMutation__
- *
- * To run a mutation, you first call `useUpdateTrackMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useUpdateTrackMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
- *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
- *
- * @example
- * const [updateTrackMutation, { data, loading, error }] = useUpdateTrackMutation({
- *   variables: {
- *      updateTrackId: // value for 'updateTrackId'
- *      updateTrackContent: // value for 'updateTrackContent'
- *   },
- * });
- */
-export function useUpdateTrackMutation(baseOptions?: Apollo.MutationHookOptions<UpdateTrackMutation, UpdateTrackMutationVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<UpdateTrackMutation, UpdateTrackMutationVariables>(UpdateTrackDocument, options);
-      }
-export type UpdateTrackMutationHookResult = ReturnType<typeof useUpdateTrackMutation>;
-export type UpdateTrackMutationResult = Apollo.MutationResult<UpdateTrackMutation>;
-export type UpdateTrackMutationOptions = Apollo.BaseMutationOptions<UpdateTrackMutation, UpdateTrackMutationVariables>;
+export function useUpdateTrackMutation() {
+  return Urql.useMutation<UpdateTrackMutation, UpdateTrackMutationVariables>(UpdateTrackDocument);
+};
 export const TrackDocument = gql`
     query track($trackId: ID!) {
   track(id: $trackId) {
@@ -189,33 +166,9 @@ export const TrackDocument = gql`
 }
     `;
 
-/**
- * __useTrackQuery__
- *
- * To run a query within a React component, call `useTrackQuery` and pass it any options that fit your needs.
- * When your component renders, `useTrackQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTrackQuery({
- *   variables: {
- *      trackId: // value for 'trackId'
- *   },
- * });
- */
-export function useTrackQuery(baseOptions: Apollo.QueryHookOptions<TrackQuery, TrackQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TrackQuery, TrackQueryVariables>(TrackDocument, options);
-      }
-export function useTrackLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TrackQuery, TrackQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TrackQuery, TrackQueryVariables>(TrackDocument, options);
-        }
-export type TrackQueryHookResult = ReturnType<typeof useTrackQuery>;
-export type TrackLazyQueryHookResult = ReturnType<typeof useTrackLazyQuery>;
-export type TrackQueryResult = Apollo.QueryResult<TrackQuery, TrackQueryVariables>;
+export function useTrackQuery(options: Omit<Urql.UseQueryArgs<TrackQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<TrackQuery>({ query: TrackDocument, ...options });
+};
 export const TracksDocument = gql`
     query tracks {
   tracks {
@@ -231,29 +184,6 @@ export const TracksDocument = gql`
 }
     `;
 
-/**
- * __useTracksQuery__
- *
- * To run a query within a React component, call `useTracksQuery` and pass it any options that fit your needs.
- * When your component renders, `useTracksQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTracksQuery({
- *   variables: {
- *   },
- * });
- */
-export function useTracksQuery(baseOptions?: Apollo.QueryHookOptions<TracksQuery, TracksQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TracksQuery, TracksQueryVariables>(TracksDocument, options);
-      }
-export function useTracksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TracksQuery, TracksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TracksQuery, TracksQueryVariables>(TracksDocument, options);
-        }
-export type TracksQueryHookResult = ReturnType<typeof useTracksQuery>;
-export type TracksLazyQueryHookResult = ReturnType<typeof useTracksLazyQuery>;
-export type TracksQueryResult = Apollo.QueryResult<TracksQuery, TracksQueryVariables>;
+export function useTracksQuery(options: Omit<Urql.UseQueryArgs<TracksQueryVariables>, 'query'> = {}) {
+  return Urql.useQuery<TracksQuery>({ query: TracksDocument, ...options });
+};
