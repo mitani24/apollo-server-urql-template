@@ -86,7 +86,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /author/{authorId}:
+  /authors/{authorId}:
     get:
       tags:
         - author
@@ -170,7 +170,7 @@ components:
               example: c_0
             createdAt:
               type: string
-              example: 2018-09-10T07:13:53.020Z
+              example: "2018-09-10T07:13:53.020Z"
         - $ref: "#/components/schemas/TrackDynamicProps"
     Author:
       type: object

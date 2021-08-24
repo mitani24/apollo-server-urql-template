@@ -4,7 +4,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
-    "start": "ts-node src/index.ts"
+    "start": "ts-node src/index.ts",
+    "mock:api": "prism mock ../openapi/openapi.yaml"
   },
   "dependencies": {
     "apollo-datasource-rest": "^3.1.1",
