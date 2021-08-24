@@ -1,0 +1,197 @@
+openapi: 3.0.2
+info:
+  title: My API
+  version: 1.0.0
+tags:
+  - name: track
+    description: Everything about Tracks
+  - name: author
+    description: Everything about Authors
+paths:
+  /tracks:
+    get:
+      tags:
+        - track
+      operationId: tracks
+      responses:
+        "200":
+          description: successfull operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Track"
+  /tracks/{trackId}:
+    get:
+      tags:
+        - track
+      operationId: track
+      parameters:
+        - name: trackId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfull operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Track"
+        "400":
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Track not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    put:
+      tags:
+        - track
+      operationId: updateTrack
+      parameters:
+        - name: trackId
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/TrackDynamicProps"
+      responses:
+        "200":
+          description: successfull operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Track"
+        "400":
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Track not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /author/{authorId}:
+    get:
+      tags:
+        - author
+      operationId: author
+      parameters:
+        - name: authorId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: successfull operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Author"
+        "400":
+          description: Invalid ID supplied
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        "404":
+          description: Author not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    TrackDynamicProps:
+      properties:
+        thumbnail:
+          type: string
+          example: https://res.cloudinary.com/dety84pbu/image/upload/v1598465568/nebula_cat_djkt9r.jpg
+        topic:
+          type: string
+          example: Cat-stronomy
+        auhtorId:
+          type: string
+          example: cat-1
+        title:
+          type: string
+          example: Cat-stronomy, an introduction
+        description:
+          type: string
+          example: Cat is God.
+        numberOfViews:
+          type: integer
+          example: 10
+        length:
+          type: integer
+          example: 2377
+        modulesCount:
+          type: integer
+          example: 10
+        modules:
+          type: array
+          items:
+            type: string
+          example:
+            [
+              "l_0",
+              "l_1",
+              "l_2",
+              "l_3",
+              "l_4",
+              "l_5",
+              "l_6",
+              "l_7",
+              "l_8",
+              "l_9",
+            ]
+    Track:
+      type: object
+      allOf:
+        - properties:
+            id:
+              type: string
+              example: c_0
+            createdAt:
+              type: string
+              example: 2018-09-10T07:13:53.020Z
+        - $ref: "#/components/schemas/TrackDynamicProps"
+    Author:
+      type: object
+      properties:
+        id:
+          type: string
+          example: cat-i
+        name:
+          type: string
+          example: Yoshi Ikuzo
+        photo:
+          type: string
+          example: https://images.unsplash.com/photo-1442291928580-fb5d0856a8f1?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzA0OH0
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
