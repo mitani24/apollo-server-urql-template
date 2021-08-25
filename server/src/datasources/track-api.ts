@@ -1,10 +1,24 @@
-import { RESTDataSource } from "apollo-datasource-rest";
+import { RequestOptions, RESTDataSource } from "apollo-datasource-rest";
 import { UpdateTrackContent } from "../__generated__/graphql-resolver-types";
+import type { Context } from "../types/context";
 
-class TrackAPI extends RESTDataSource {
+const baseURL = {
+  test: "http://localhost:4010/",
+  development: "http://localhost:3001/",
+};
+
+class TrackAPI extends RESTDataSource<Context> {
   constructor() {
     super();
-    this.baseURL = "http://localhost:3001/";
+    this.baseURL =
+      process.env.NODE_ENV === "test" ? baseURL.test : baseURL.development;
+  }
+
+  willSendRequest(request: RequestOptions) {
+    const { mockResponseCode } = this.context;
+    if (mockResponseCode) {
+      request.headers.set("Prefer", `code=${mockResponseCode}`);
+    }
   }
 
   getTracks() {

@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`tracks fetches the tracks 1`] = `
+Object {
+  "data": Object {
+    "tracks": Array [
+      Object {
+        "author": Object {
+          "id": "cat-i",
+          "name": "Yoshi Ikuzo",
+          "photo": "https://images.unsplash.com/photo-1442291928580-fb5d0856a8f1?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max&ixid=eyJhcHBfaWQiOjExNzA0OH0",
+        },
+        "description": "Cat is God.",
+        "id": "c_0",
+        "length": 2377,
+        "modules": Array [
+          "l_0",
+          "l_1",
+          "l_2",
+          "l_3",
+          "l_4",
+          "l_5",
+          "l_6",
+          "l_7",
+          "l_8",
+          "l_9",
+        ],
+        "modulesCount": 10,
+        "numberOfViews": 10,
+        "thumbnail": "https://res.cloudinary.com/dety84pbu/image/upload/v1598465568/nebula_cat_djkt9r.jpg",
+        "title": "Cat-stronomy, an introduction",
+      },
+    ],
+  },
+  "errors": undefined,
+  "extensions": undefined,
+  "http": Object {
+    "headers": Headers {
+      Symbol(map): Object {},
+    },
+  },
+}
+`;
