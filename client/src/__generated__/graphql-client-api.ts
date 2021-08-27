@@ -187,6 +187,15 @@ export const TracksDocument = gql`
 export function useTracksQuery(options: Omit<Urql.UseQueryArgs<TracksQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<TracksQuery>({ query: TracksDocument, ...options });
 };
+export const namedOperations = {
+  Query: {
+    track: 'track',
+    tracks: 'tracks'
+  },
+  Mutation: {
+    updateTrack: 'updateTrack'
+  }
+}
 export interface AuthorOptions {
   __typename?: "Author";
   id?: Author["id"];

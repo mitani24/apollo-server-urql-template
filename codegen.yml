@@ -13,4 +13,5 @@ generates:
       - typescript
       - typescript-operations
       - typescript-urql
+      - named-operations-object
       - "@homebound/graphql-typescript-factories"
