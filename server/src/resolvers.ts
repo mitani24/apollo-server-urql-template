@@ -32,7 +32,7 @@ const resolvers: Resolvers<ContextType> = {
           return {
             code: err.extensions.response.status,
             success: false,
-            message: err.extensions.response.body,
+            message: JSON.stringify(err.extensions.response.body),
             track: null,
           };
         }

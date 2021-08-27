@@ -32,7 +32,7 @@ describe("track", () => {
   });
 
   it("responds with a 404 error", async () => {
-    const server = createServer({ mockResponseCode: 400 });
+    const server = createServer({ mockResponseCode: 404 });
     const res = await server.executeOperation({
       query: TRACK,
       variables: { trackId: "c_0" },
