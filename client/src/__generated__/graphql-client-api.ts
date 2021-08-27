@@ -187,3 +187,171 @@ export const TracksDocument = gql`
 export function useTracksQuery(options: Omit<Urql.UseQueryArgs<TracksQueryVariables>, 'query'> = {}) {
   return Urql.useQuery<TracksQuery>({ query: TracksDocument, ...options });
 };
+export interface AuthorOptions {
+  __typename?: "Author";
+  id?: Author["id"];
+  name?: Author["name"];
+  photo?: Author["photo"];
+}
+
+export function newAuthor(
+  options: AuthorOptions = {},
+  cache: Record<string, any> = {}
+): Author {
+  const o = (cache["Author"] = {} as Author);
+  o.__typename = "Author";
+  o.id = options.id ?? nextFactoryId("Author");
+  o.name = options.name ?? "name";
+  o.photo = options.photo ?? null;
+  return o;
+}
+
+function maybeNewAuthor(
+  value: AuthorOptions | undefined,
+  cache: Record<string, any>,
+  isSet: boolean = false
+): Author {
+  if (value === undefined) {
+    return isSet ? undefined : cache["Author"] || newAuthor({}, cache);
+  } else if (value.__typename) {
+    return value as Author;
+  } else {
+    return newAuthor(value, cache);
+  }
+}
+
+function maybeNewOrNullAuthor(
+  value: AuthorOptions | undefined | null,
+  cache: Record<string, any>
+): Author | null {
+  if (!value) {
+    return null;
+  } else if (value.__typename) {
+    return value as Author;
+  } else {
+    return newAuthor(value, cache);
+  }
+}
+export interface TrackOptions {
+  __typename?: "Track";
+  id?: Track["id"];
+  title?: Track["title"];
+  authorId?: Track["authorId"];
+  author?: AuthorOptions;
+  thumbnail?: Track["thumbnail"];
+  length?: Track["length"];
+  modulesCount?: Track["modulesCount"];
+  description?: Track["description"];
+  numberOfViews?: Track["numberOfViews"];
+  modules?: Track["modules"];
+}
+
+export function newTrack(
+  options: TrackOptions = {},
+  cache: Record<string, any> = {}
+): Track {
+  const o = (cache["Track"] = {} as Track);
+  o.__typename = "Track";
+  o.id = options.id ?? nextFactoryId("Track");
+  o.title = options.title ?? "title";
+  o.authorId = options.authorId ?? "authorId";
+  o.author = maybeNewAuthor(
+    options.author,
+    cache,
+    options.hasOwnProperty("author")
+  );
+  o.thumbnail = options.thumbnail ?? null;
+  o.length = options.length ?? null;
+  o.modulesCount = options.modulesCount ?? null;
+  o.description = options.description ?? null;
+  o.numberOfViews = options.numberOfViews ?? null;
+  o.modules = options.modules ?? [];
+  return o;
+}
+
+function maybeNewTrack(
+  value: TrackOptions | undefined,
+  cache: Record<string, any>,
+  isSet: boolean = false
+): Track {
+  if (value === undefined) {
+    return isSet ? undefined : cache["Track"] || newTrack({}, cache);
+  } else if (value.__typename) {
+    return value as Track;
+  } else {
+    return newTrack(value, cache);
+  }
+}
+
+function maybeNewOrNullTrack(
+  value: TrackOptions | undefined | null,
+  cache: Record<string, any>
+): Track | null {
+  if (!value) {
+    return null;
+  } else if (value.__typename) {
+    return value as Track;
+  } else {
+    return newTrack(value, cache);
+  }
+}
+export interface UpdateTrackResponseOptions {
+  __typename?: "UpdateTrackResponse";
+  code?: UpdateTrackResponse["code"];
+  success?: UpdateTrackResponse["success"];
+  message?: UpdateTrackResponse["message"];
+  track?: TrackOptions | null;
+}
+
+export function newUpdateTrackResponse(
+  options: UpdateTrackResponseOptions = {},
+  cache: Record<string, any> = {}
+): UpdateTrackResponse {
+  const o = (cache["UpdateTrackResponse"] = {} as UpdateTrackResponse);
+  o.__typename = "UpdateTrackResponse";
+  o.code = options.code ?? 0;
+  o.success = options.success ?? false;
+  o.message = options.message ?? "message";
+  o.track = maybeNewOrNullTrack(options.track, cache);
+  return o;
+}
+
+function maybeNewUpdateTrackResponse(
+  value: UpdateTrackResponseOptions | undefined,
+  cache: Record<string, any>,
+  isSet: boolean = false
+): UpdateTrackResponse {
+  if (value === undefined) {
+    return isSet
+      ? undefined
+      : cache["UpdateTrackResponse"] || newUpdateTrackResponse({}, cache);
+  } else if (value.__typename) {
+    return value as UpdateTrackResponse;
+  } else {
+    return newUpdateTrackResponse(value, cache);
+  }
+}
+
+function maybeNewOrNullUpdateTrackResponse(
+  value: UpdateTrackResponseOptions | undefined | null,
+  cache: Record<string, any>
+): UpdateTrackResponse | null {
+  if (!value) {
+    return null;
+  } else if (value.__typename) {
+    return value as UpdateTrackResponse;
+  } else {
+    return newUpdateTrackResponse(value, cache);
+  }
+}
+let nextFactoryIds: Record<string, number> = {};
+
+export function resetFactoryIds() {
+  nextFactoryIds = {};
+}
+
+function nextFactoryId(objectName: string): string {
+  const nextId = nextFactoryIds[objectName] || 1;
+  nextFactoryIds[objectName] = nextId + 1;
+  return String(nextId);
+}

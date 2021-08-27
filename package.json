@@ -20,6 +20,7 @@
     "@graphql-codegen/typescript": "2.0.0",
     "@graphql-codegen/typescript-operations": "^2.0.1",
     "@graphql-codegen/typescript-resolvers": "2.0.0",
-    "@graphql-codegen/typescript-urql": "^3.1.0"
+    "@graphql-codegen/typescript-urql": "^3.1.0",
+    "@homebound/graphql-typescript-factories": "^2.41.0"
   }
 }
